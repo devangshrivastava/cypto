@@ -35,7 +35,6 @@ class TripleDeffieHellman(Scene):
         # self.draw_arrow_between_boxes_lr(epk_public_box, ika_private_box)
         self.DH(ika_public_box, ika_private_box, epk_public_box, epk_private_box)
 
-
         self.wait(2)
     
     def create_keys(self, owner_name, owner_text):
