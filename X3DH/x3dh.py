@@ -1,6 +1,6 @@
 from manim import *
 
-class TripleDeffieHellman(Scene):
+class X3DH(Scene):
     def construct(self):
         # Create Alice and Bob
         alice = Text("Alice").shift(LEFT * 3)
