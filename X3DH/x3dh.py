@@ -3,8 +3,8 @@ from manim import *
 class X3DH(Scene):
     def construct(self):
         # Create Alice and Bob
-        alice = Text("Alice").shift(LEFT * 3)
-        bob = Text("Bob").shift(RIGHT * 3)
+        alice = Text("Alice\n (sender)").shift(LEFT * 3)
+        bob = Text("Bob\n (reciever)").shift(RIGHT * 3)
         self.play(Write(alice), Write(bob))
 
         # Show Alice's keys
@@ -41,8 +41,8 @@ class X3DH(Scene):
         key_labels = [
             f"IK{owner_name[0].lower()} (public)",
             f"ik{owner_name[0].lower()} (private)",
-            "EPK (public)",
-            "epk (private)"
+            "SPK (public)",
+            "spk (private)"
         ]
         
         keys = VGroup()
@@ -73,10 +73,14 @@ class X3DH(Scene):
         self.play(Create(arrow2))
         self.wait(1)
 
-        diffie_hellman_text_1 = Text("Diffie-Hellman (EPK(public), IKa(private))", font_size=24).shift(DOWN * 2.5)
-        diffie_hellman_text_2 = Text("Diffie-Hellman (EPK(private), IKa(public))", font_size=24).next_to(diffie_hellman_text_1, DOWN, buff=0.2) 
+        diffie_hellman_text_1 = Text("Diffie-Hellman (SPK (public), IKa(private))", font_size=24).shift(DOWN * 2.5)
+        diffie_hellman_text_2 = Text("Diffie-Hellman (spk (private), IKa(public))", font_size=24).next_to(diffie_hellman_text_1, DOWN, buff=0.2) 
         self.play(Write(diffie_hellman_text_1))
         self.play(Write(diffie_hellman_text_2))
         self.wait(2)
 
         self.play(FadeOut(arrow1, arrow2, diffie_hellman_text_1, diffie_hellman_text_2))
+
+#generate the arrow one after another and write the text "Diffie-Hellman ($arrow start box text, $arrow end box text)"
+# first arrow is between  Alice IKA (public) and Bob spk (private)
+# second arrow is between Bob EPK (public)       
