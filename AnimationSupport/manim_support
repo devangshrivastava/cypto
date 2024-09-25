@@ -1,0 +1,79 @@
+from manim import *
+
+'''
+With this python file in your project directory
+Import the module using 'from manim_support import *'
+
+'''
+
+def drawArrow(coords, color = "white", type = "arrow", width = 2, tip_length = 0.2):
+    '''
+    Returns -  A VGroup containing arrow and lines,for the consecutive coordinate points.
+    Usage - provide a list of 2D coordinates in coords.
+            color specifies line and arrow head color, width is the line width.
+            type defines whether arrow head will be present or not at the ending line.
+    '''
+    vg = VGroup()
+    for i in range(len(coords)-1):
+        x1, y1 = coords[i]
+        x2, y2 = coords[i+1]
+        if(i == len(coords)-2 and type == 'arrow'):
+            arrow = Arrow((x1,y1,0), (x2,y2,0),buff = 0,  fill_color=color, fill_opacity = 1, stroke_color=color, stroke_width = width, tip_length=tip_length)
+            vg.add(arrow)
+        else:
+            line = Line((x1,y1,0), (x2,y2,0), stroke_color=color, fill_opacity = 1, stroke_width = width)
+            vg.add(line)
+    return vg
+
+
+def underLine(entity_name):
+    '''
+    Returns - A line object, located below the entity.
+    Usage - Just pass the name of object to be underlined
+    '''
+    line = Line(
+        start=entity_name.get_left(), 
+        end=entity_name.get_right()
+    ).next_to(entity_name, DOWN, buff=0.1)
+    return line
+
+def addLabel(object,  label = "", color = 'white', scale = 0.5):
+    '''
+    Returns - VGroup containing Object and Label.
+    Usage - pass the object and the text as label, and label color
+            size of text can be changed using scale.
+    '''
+    label_text = Text(label, color = color).scale(scale)
+    label_text.move_to(object)
+    labeled_object = VGroup(object, label_text)
+
+    return labeled_object
+
+def semiCapsule(color = "white",label = '', label_color = 'black', length = 2, angle = 0):
+    '''
+    Returns - Semi Capsule object.
+    Usage - color is the color of semi capsule, label can ablo be provided
+            angle can be used to rotate the object.
+    '''
+    rect = Rectangle(height = 1, width = length, fill_opacity=1, fill_color=color, stroke_width=0)
+    circ = Circle(radius = 0.5, fill_opacity= 1, fill_color=color, stroke_width=0)
+    circ.move_to((length/2,0,0))
+    capsule = VGroup(rect, circ)
+    if(label != ''):
+        capsule = addLabel(capsule, label = label, color = label_color)
+    angle = PI*angle/180
+    capsule.rotate(angle)
+    return capsule
+
+def Capsule(color = 'white',label = '', label_color = 'black', length = 2, angle = 0):
+    rect = rect = Rectangle(height = 1, width = length, fill_opacity=1, fill_color=color, stroke_width=0)
+    circ1 = Circle(radius = 0.5, fill_opacity= 1, fill_color=color, stroke_width=0)
+    circ1.move_to((length/2,0,0))
+    circ2 = Circle(radius = 0.5, fill_opacity= 1, fill_color=color, stroke_width=0)
+    circ2.move_to((-length/2,0,0))
+    capsule = VGroup(rect, circ1, circ2)
+    if(label != ''):
+        capsule = addLabel(capsule, label = label, color = label_color)
+    angle = PI*angle/180
+    capsule.rotate(angle)
+    return capsule
